@@ -10,6 +10,9 @@ import AdminPage from './components/admin/AdminPage'
 import UserPage from './components/user/UserPage'
 
 function App() {
+  //thuộc tính exact dùng để nói rằng khi truy cập đúng 100% đường dẫn khai báo thì nó mới vào
+  //nếu ko có exact thì nó chỉ cần thấy đúng phần đầu của đường dẫn là nó sẽ vào -->/login, /signup, /adminpage, /userpage sẽ cùng vào / vì phần đầu là /
+  //thứ tự luồng chạy khi truy cập đường dẫn localhost:3000 là App.js(khởi tạo các route) > AuthContext.js(khởi tạo context) > Navbar.js > Home.js(vì đang truy cập /)
   return (
     <AuthProvider>
       <Router>

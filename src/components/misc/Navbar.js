@@ -1,13 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Menu } from 'semantic-ui-react'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../context/AuthContext' //chỗ này import từ export phương thức useAuth() của AuthContext -->chạy vào useAuth()
 
-function Navbar() {
+//thứ tự các phương thức sẽ luôn được gọi trong 1 class component hoặc function component -->Constuctor > render/return > componentDidMount
+function Navbar() { //Constructor sẽ luôn được chạy đầu tiên
   const { getUser, userIsAuthenticated, userLogout } = useAuth()
 
   const logout = () => {
-    userLogout()
+    userLogout() //nếu chạy dòng này nó sẽ gọi qua phương thức userLogout() của AuthContext
   }
 
   const enterMenuStyle = () => {
@@ -33,6 +34,8 @@ function Navbar() {
     return user ? user.name : ''
   }
 
+   //render/return sẽ luôn được chạy sau Constructor -->tất cả các phương thức trong return sẽ được chạy
+   //trong render/return muốn hiển thị giá trị hoặc gọi bất kỳ phương thức nào thì dùng dấu {}
   return (
     <Menu inverted color='blue' stackable size='massive' style={{borderRadius: 0}}>
       <Container>

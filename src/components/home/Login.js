@@ -55,7 +55,9 @@ class Login extends Component {
         this.setState({ isError: true })
       })
   }
-
+ 
+  //<Route path='/login' component={Login} /> -->Route sẽ tự động truyền match, location, history cho component Login thông qua this.props
+  //nếu component ko được khai báo bên trong <Route> thì phải sử dụng withRouter để nhận match, location, history
   getReferer = () => {
     const locationState = this.props.location.state
     return locationState && locationState.referer ? locationState.referer : '/'

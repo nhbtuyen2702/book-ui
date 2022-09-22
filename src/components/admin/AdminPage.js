@@ -22,7 +22,7 @@ class AdminPage extends Component {
   }
 
   componentDidMount() {
-    const Auth = this.context
+    const Auth = this.context // this.context = useAuth()
     const user = Auth.getUser()
     const isAdmin = user.role === 'ADMIN'
     this.setState({ isAdmin })
@@ -164,7 +164,7 @@ class AdminPage extends Component {
       const { isUsersLoading, users, userUsernameSearch, isBooksLoading, books, bookIsbn, bookTitle, bookTextSearch } = this.state
       return (
         <Container>
-          <AdminTab
+          <AdminTab //gọi component AdminTab -->chạy vào Constructor và render
             isUsersLoading={isUsersLoading}
             users={users}
             userUsernameSearch={userUsernameSearch}
