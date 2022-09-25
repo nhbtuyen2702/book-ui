@@ -1,7 +1,7 @@
 import React from 'react'
-import { Grid, Header, Form, Icon, Image, Input, Item, Segment } from 'semantic-ui-react'
+import { Grid, Header, Form, Icon, Image, Input, Item, Segment, Button } from 'semantic-ui-react'
 
-function BookList({ isBooksLoading, bookTextSearch, books, handleInputChange, handleSearchBook }) {
+function BookList({ isBooksLoading, bookTextSearch, books, handleInputChange, handleSearchBook, handleAddBookToCart }) {
   let bookList
   if (books.length === 0) {
     bookList = <Item key='no-book'>No book</Item>
@@ -13,9 +13,20 @@ function BookList({ isBooksLoading, bookTextSearch, books, handleInputChange, ha
           <Item.Content>
             <Item.Header>{book.title}</Item.Header>
             <Item.Meta>{book.isbn}</Item.Meta>
+            <Item.Meta>${book.price}</Item.Meta>
             <Item.Description>
               <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
             </Item.Description>
+            <Item.Extra>
+                <Button
+                    circular
+                    color='green'
+                    size='small'
+                    icon='add to cart'
+                    disabled={book.title === 'admin'}
+                    onClick={() => handleAddBookToCart(book)}
+                />
+        </Item.Extra>
           </Item.Content>
         </Item>
       )

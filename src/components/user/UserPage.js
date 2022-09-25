@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { Container } from 'semantic-ui-react'
-import BookList from './BookList'
 import AuthContext from '../context/AuthContext'
 import { bookApi } from '../misc/BookApi'
 import { handleLogError } from '../misc/Helpers'
+import UserTab from './UserTab'
 
 class UserPage extends Component {
   static contextType = AuthContext
@@ -13,7 +13,8 @@ class UserPage extends Component {
     books: [],
     bookTextSearch: '',
     isUser: true,
-    isBooksLoading: false
+    isBooksLoading: false,
+    cart: [],
   }
 
   componentDidMount() {
@@ -62,21 +63,84 @@ class UserPage extends Component {
       })
   }
 
+  handleAddBookToCart = (book) => {
+    let { cart } = this.state;
+    
+    const bookExist = cart.find((item) => {
+      return item.isbn === book.isbn
+    });
+
+    if (bookExist) {
+      this.setState({
+        cart: cart.map((item) => {
+          return item.isbn === book.isbn ? { ...bookExist, quantity: bookExist.quantity + 1 } : item
+        })
+      })
+    } else {
+      this.setState({
+        cart: [...cart, {...book, quantity: 1, price: 100}]
+      })
+    }
+    
+  }
+
+  handleRemoveBookFromCart = (book) => {
+    let { cart } = this.state;
+
+    const bookExist = cart.find((item) => {
+      return item.isbn === book.isbn
+    });
+
+    if(bookExist.quantity === 1) {
+      this.setState({
+        cart: cart.filter((item) => {
+          return item.isbn !== book.isbn
+        })
+      })
+    } else {
+      this.setState({
+        cart: cart.map((item) => {
+          return item.isbn === book.isbn ? { ...bookExist, quantity: bookExist.quantity - 1 } : item
+        })
+      })
+    }
+  }
+
+  handleCheckout = (cart) => {
+    const Auth = this.context
+    const user = Auth.getUser()
+
+    const text = this.state.bookTextSearch
+    bookApi.createOrder(user, cart)
+      .then(response => {
+        //...
+      })
+      .catch(error => {
+        handleLogError(error)
+        //...
+      })
+  }
+
   render() {
     if (!this.state.isUser) {
       return <Redirect to='/' />
     } else {
-      const { isBooksLoading, books, bookTextSearch } = this.state
+      const { isBooksLoading, books, bookTextSearch, cart } = this.state
       return (
         <Container>
-          <BookList
+          <UserTab
             isBooksLoading={isBooksLoading}
             bookTextSearch={bookTextSearch}
             books={books}
             handleInputChange={this.handleInputChange}
             handleSearchBook={this.handleSearchBook}
+            cart={cart}
+            handleAddBookToCart={this.handleAddBookToCart}
+            handleRemoveBookFromCart={this.handleRemoveBookFromCart}
+            handleCheckout={this.handleCheckout}
           />
         </Container>
+
       )
     }
   }
