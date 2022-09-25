@@ -6,8 +6,10 @@ import BookList from './BookList'
 function UserTab(props) {
     const { handleInputChange } = props
     const { cart, handleAddBookToCart, handleRemoveBookFromCart, handleCheckout } = props
-    const { isBooksLoading, books, bookTextSearch, handleSearchBook,  } = props
-
+    const { isBooksLoading, books, bookTextSearch, handleSearchBook } = props
+    let totalQuantity = cart.reduce((quantity, item) => {
+        return quantity + item.quantity
+    }, 0)
     const panes = [
         {
             menuItem: { key: 'books', icon: 'book', content: 'Books' },
@@ -25,7 +27,7 @@ function UserTab(props) {
             )
         },
         {
-            menuItem: { key: 'cart', icon: 'cart', content: 'Cart' },
+            menuItem: { key: 'cart', icon: 'cart', content: totalQuantity },
             render: () => (
                 <Tab.Pane loading={isBooksLoading}>
                     <BookTable
