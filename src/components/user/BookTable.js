@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Grid, Image, Input, Table } from 'semantic-ui-react'
 
-function BookTable({ bookTextSearch, cart, handleInputChange,  handleSearchBook, handleAddBookToCart, handleRemoveBookFromCart, handleCheckout }) {
+function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handleCheckout }) {
   let bookList
   let totalPrice
   if (cart.length === 0) {
