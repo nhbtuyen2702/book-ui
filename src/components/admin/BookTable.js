@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Form, Grid, Image, Input, Table } from 'semantic-ui-react'
 import BookForm from './BookForm'
+import ModalExampleScrollingContent from './ModalExampleScrollingContent'
 
 function BookTable({ books, bookIsbn, bookTitle, bookTextSearch, handleSearchBook, handleAddBook, handleDeleteBook, handleInputChange }) {
   let bookList
@@ -71,6 +72,11 @@ function BookTable({ books, bookIsbn, bookTitle, bookTextSearch, handleSearchBoo
           {bookList}
         </Table.Body>
       </Table>
+      <ModalExampleScrollingContent
+        books={books}
+        bookIsbn={bookIsbn}
+        bookTitle={bookTitle}
+      />
     </>
   )
 }

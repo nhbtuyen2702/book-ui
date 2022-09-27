@@ -39,6 +39,13 @@ function AdminTab(props) {
           />
         </Tab.Pane>
       )
+    },
+    {
+      menuItem: { key: 'order', icon: 'folder open', content: 'order' },
+      render: () => (
+        <Tab.Pane loading={isBooksLoading}>
+        </Tab.Pane>
+      )
     }
   ]
 
