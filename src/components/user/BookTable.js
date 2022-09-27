@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, Grid, Image, Input, Table } from 'semantic-ui-react'
+import { Button, Image, Table } from 'semantic-ui-react'
 
 function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handleCheckout }) {
   let bookList
@@ -12,8 +12,9 @@ function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handle
     )
   } else {
     totalPrice = cart.reduce((price, item) => {
-        return price + item.quantity * item.price
+      return price + item.quantity * item.price
     }, 0)
+
     bookList = cart.map(item => {
       return (
         <Table.Row key={item.isbn}>
@@ -65,20 +66,13 @@ function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handle
           {bookList}
         </Table.Body>
       </Table>
-      { totalPrice > 0 && 
-        <Grid stackable divided verticalAlign='right'>
-            <Grid.Row columns='1'>
-                <Grid.Column width='15'>
-                    <Button
-                        color='green'
-                        size='small'
-                        icon='cart plus'
-                        onClick={() => handleCheckout(cart)}
-                    >Total Price: ${totalPrice}</Button>
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
-       }
+      {totalPrice > 0 &&
+        <Button
+          color='green'
+          size='small'
+          onClick={() => handleCheckout(cart)}
+        >Total Price: ${totalPrice}</Button>
+      }
     </>
   )
 }
