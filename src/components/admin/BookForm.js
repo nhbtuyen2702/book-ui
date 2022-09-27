@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Icon } from 'semantic-ui-react'
 
-function BookForm({ bookIsbn, bookTitle, handleInputChange, handleAddBook }) {
+function BookForm({ bookIsbn, bookTitle, handleAddBook, handleInputChange }) {
   const createBtnDisabled = bookIsbn.trim() === '' || bookTitle.trim() === ''
   return (
     <Form onSubmit={handleAddBook}>

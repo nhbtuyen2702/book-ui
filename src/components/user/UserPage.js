@@ -12,8 +12,8 @@ class UserPage extends Component {
   state = {
     books: [],
     bookTextSearch: '',
-    isUser: true,
     isBooksLoading: false,
+    isUser: true,
     cart: [],
   }
 
@@ -65,7 +65,7 @@ class UserPage extends Component {
 
   handleAddBookToCart = (book) => {
     let { cart } = this.state;
-    
+
     const bookExist = cart.find((item) => {
       return item.isbn === book.isbn
     });
@@ -78,10 +78,10 @@ class UserPage extends Component {
       })
     } else {
       this.setState({
-        cart: [...cart, {...book, quantity: 1, price: 100}]
+        cart: [...cart, { ...book, quantity: 1, price: 100 }]
       })
     }
-    
+
   }
 
   handleRemoveBookFromCart = (book) => {
@@ -91,7 +91,7 @@ class UserPage extends Component {
       return item.isbn === book.isbn
     });
 
-    if(bookExist.quantity === 1) {
+    if (bookExist.quantity === 1) {
       this.setState({
         cart: cart.filter((item) => {
           return item.isbn !== book.isbn
@@ -125,15 +125,15 @@ class UserPage extends Component {
     if (!this.state.isUser) {
       return <Redirect to='/' />
     } else {
-      const { isBooksLoading, books, bookTextSearch, cart } = this.state
+      const { books, bookTextSearch, isBooksLoading, cart } = this.state
       return (
         <Container>
           <UserTab
-            isBooksLoading={isBooksLoading}
-            bookTextSearch={bookTextSearch}
             books={books}
-            handleInputChange={this.handleInputChange}
+            bookTextSearch={bookTextSearch}
             handleSearchBook={this.handleSearchBook}
+            isBooksLoading={isBooksLoading}
+            handleInputChange={this.handleInputChange}
             cart={cart}
             handleAddBookToCart={this.handleAddBookToCart}
             handleRemoveBookFromCart={this.handleRemoveBookFromCart}

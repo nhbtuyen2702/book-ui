@@ -1,7 +1,7 @@
 import React from 'react'
-import { Form, Button, Input, Table } from 'semantic-ui-react'
+import { Button, Form, Input, Table } from 'semantic-ui-react'
 
-function UserTable({ users, userUsernameSearch, handleInputChange, handleDeleteUser, handleSearchUser }) {
+function UserTable({ users, userUsernameSearch, handleSearchUser, handleDeleteUser, handleInputChange }) {
   let userList
   if (users.length === 0) {
     userList = (
@@ -47,7 +47,7 @@ function UserTable({ users, userUsernameSearch, handleInputChange, handleDeleteU
       <Table compact striped selectable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell width={1}/>
+            <Table.HeaderCell width={1} />
             <Table.HeaderCell width={1}>ID</Table.HeaderCell>
             <Table.HeaderCell width={3}>Username</Table.HeaderCell>
             <Table.HeaderCell width={4}>Name</Table.HeaderCell>

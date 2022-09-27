@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink, Redirect } from 'react-router-dom'
-import { Button, Form, Grid, Segment, Message } from 'semantic-ui-react'
+import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react'
 import AuthContext from '../context/AuthContext'
 import { bookApi } from '../misc/BookApi'
 import { handleLogError } from '../misc/Helpers'
@@ -100,8 +100,8 @@ class Signup extends Component {
                   name='password'
                   icon='lock'
                   iconPosition='left'
-                  placeholder='Password'
                   type='password'
+                  placeholder='Password'
                   onChange={this.handleInputChange}
                 />
                 <Form.Input

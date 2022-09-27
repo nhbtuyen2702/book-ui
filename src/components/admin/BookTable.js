@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Form, Grid, Image, Input, Table } from 'semantic-ui-react'
 import BookForm from './BookForm'
 
-function BookTable({ books, bookIsbn, bookTitle, bookTextSearch, handleInputChange, handleAddBook, handleDeleteBook, handleSearchBook }) {
+function BookTable({ books, bookIsbn, bookTitle, bookTextSearch, handleSearchBook, handleAddBook, handleDeleteBook, handleInputChange }) {
   let bookList
   if (books.length === 0) {
     bookList = (
@@ -52,8 +52,8 @@ function BookTable({ books, bookIsbn, bookTitle, bookTextSearch, handleInputChan
             <BookForm
               bookIsbn={bookIsbn}
               bookTitle={bookTitle}
-              handleInputChange={handleInputChange}
               handleAddBook={handleAddBook}
+              handleInputChange={handleInputChange}
             />
           </Grid.Column>
         </Grid.Row>
@@ -61,7 +61,7 @@ function BookTable({ books, bookIsbn, bookTitle, bookTextSearch, handleInputChan
       <Table compact striped selectable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell width={1}/>
+            <Table.HeaderCell width={1} />
             <Table.HeaderCell width={3}>Cover</Table.HeaderCell>
             <Table.HeaderCell width={4}>ISBN</Table.HeaderCell>
             <Table.HeaderCell width={8}>Title</Table.HeaderCell>

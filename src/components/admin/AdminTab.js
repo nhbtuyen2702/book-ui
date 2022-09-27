@@ -1,12 +1,12 @@
 import React from 'react'
 import { Tab } from 'semantic-ui-react'
-import UserTable from './UserTable'
 import BookTable from './BookTable'
+import UserTable from './UserTable'
 
 function AdminTab(props) {
+  const { books, bookIsbn, bookTitle, bookTextSearch, isBooksLoading, handleSearchBook, handleAddBook, handleDeleteBook } = props
+  const { users, userUsernameSearch, isUsersLoading, handleSearchUser, handleDeleteUser } = props
   const { handleInputChange } = props
-  const { isUsersLoading, users, userUsernameSearch, handleDeleteUser, handleSearchUser } = props
-  const { isBooksLoading, books, bookIsbn, bookTitle, bookTextSearch, handleAddBook, handleDeleteBook, handleSearchBook } = props
 
   const panes = [
     {
@@ -16,9 +16,9 @@ function AdminTab(props) {
           <UserTable
             users={users}
             userUsernameSearch={userUsernameSearch}
-            handleInputChange={handleInputChange}
-            handleDeleteUser={handleDeleteUser}
             handleSearchUser={handleSearchUser}
+            handleDeleteUser={handleDeleteUser}
+            handleInputChange={handleInputChange}
           />
         </Tab.Pane>
       )
@@ -32,10 +32,10 @@ function AdminTab(props) {
             bookIsbn={bookIsbn}
             bookTitle={bookTitle}
             bookTextSearch={bookTextSearch}
-            handleInputChange={handleInputChange}
+            handleSearchBook={handleSearchBook}
             handleAddBook={handleAddBook}
             handleDeleteBook={handleDeleteBook}
-            handleSearchBook={handleSearchBook}
+            handleInputChange={handleInputChange}
           />
         </Tab.Pane>
       )

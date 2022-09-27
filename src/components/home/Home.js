@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { Statistic, Icon, Grid, Container, Image, Segment, Dimmer, Loader } from 'semantic-ui-react'
+import { Container, Dimmer, Grid, Icon, Image, Loader, Segment, Statistic } from 'semantic-ui-react'
 import { bookApi } from '../misc/BookApi'
 import { handleLogError } from '../misc/Helpers'
 
 class Home extends Component {
   state = {
-    numberOfUsers: 0,
     numberOfBooks: 0,
+    numberOfUsers: 0,
     isLoading: false
   }
 

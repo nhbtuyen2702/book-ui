@@ -1,12 +1,12 @@
 import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 //<PrivateRoute path='/adminpage' component={AdminPage} /> -->Component = {AdminPage} và ...rest = path='/adminpage'
 //có thể sử dụng function PrivateRoute(props) {
 //  const { component,  path } = props; //biến component có giá trị là {AdminPage} và biến path có giá trị là '/adminpage'
 //}
-function PrivateRoute({ component: Component, ...rest }) { 
+function PrivateRoute({ component: Component, ...rest }) {
   const { userIsAuthenticated } = useAuth()
 
   //chỗ này đang tự tạo ra 1 Route bằng cách mới, ko dùng cách cũ là <Route path='/adminpage' component={AdminPage}  />
@@ -16,7 +16,7 @@ function PrivateRoute({ component: Component, ...rest }) {
     userIsAuthenticated()
       ? <Component {...props} />
       : <Redirect to={{ pathname: '/login', state: { referer: props.location } }} />  //phải đặt <Redirect> trong return/return, 
-      //props.location là đường dẫn người dùng đang muốn truy cập sau khi login thành công
+    //props.location là đường dẫn người dùng đang muốn truy cập sau khi login thành công
   )} />
 }
 

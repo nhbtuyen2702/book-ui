@@ -40,7 +40,7 @@ class AuthProvider extends Component {
 
     //truyền state user và tất cả các phương thức getUser, userIsAuthenticated, userLogin, userLogout qua cho các component con
     return (
-      <AuthContext.Provider value={{ user, getUser, userIsAuthenticated, userLogin, userLogout}}>
+      <AuthContext.Provider value={{ user, getUser, userIsAuthenticated, userLogin, userLogout }}>
         {children}
       </AuthContext.Provider>
     )
@@ -48,10 +48,10 @@ class AuthProvider extends Component {
 }
 
 //chỉ những class, phương thức, biến được export thì class khác mới được import
-export default AuthContext 
+export default AuthContext
 
 export function useAuth() { //các component con sẽ sử dụng phương thức useAuth() để lấy các giá trị trong context
-  return useContext(AuthContext) 
+  return useContext(AuthContext)
 }
 
 export { AuthProvider }

@@ -1,12 +1,12 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import AdminPage from './components/admin/AdminPage'
 import { AuthProvider } from './components/context/AuthContext'
-import PrivateRoute from './components/misc/PrivateRoute'
-import Navbar from './components/misc/Navbar'
 import Home from './components/home/Home'
 import Login from './components/home/Login'
 import Signup from './components/home/Signup'
-import AdminPage from './components/admin/AdminPage'
+import Navbar from './components/misc/Navbar'
+import PrivateRoute from './components/misc/PrivateRoute'
 import UserPage from './components/user/UserPage'
 
 function App() {
