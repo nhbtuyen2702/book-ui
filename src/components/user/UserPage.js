@@ -14,7 +14,7 @@ class UserPage extends Component {
     bookTextSearch: '',
     isBooksLoading: false,
     isUser: true,
-    cart: [],
+    cart: []
   }
 
   componentDidMount() {
@@ -73,12 +73,12 @@ class UserPage extends Component {
     if (bookExist) {
       this.setState({
         cart: cart.map((item) => {
-          return item.isbn === book.isbn ? { ...bookExist, quantity: bookExist.quantity + 1 } : item
+          return item.isbn === book.isbn ? { ...bookExist, quantity: bookExist.quantity + 1, amount: book.price * (bookExist.quantity + 1) } : item
         })
       })
     } else {
       this.setState({
-        cart: [...cart, { ...book, quantity: 1, price: 100 }]
+        cart: [...cart, { ...book, quantity: 1, amount: book.price * 1 }]
       })
     }
 
@@ -100,10 +100,11 @@ class UserPage extends Component {
     } else {
       this.setState({
         cart: cart.map((item) => {
-          return item.isbn === book.isbn ? { ...bookExist, quantity: bookExist.quantity - 1 } : item
+          return item.isbn === book.isbn ? { ...bookExist, quantity: bookExist.quantity - 1, amount: book.price * (bookExist.quantity - 1) } : item
         })
       })
     }
+
   }
 
   handleDeleteBookFromCart = (book) => {
@@ -116,12 +117,16 @@ class UserPage extends Component {
     })
   }
 
-  handleCheckout = (cart) => {
+  handleCheckout = () => {
+    let { cart } = this.state;
+
     const Auth = this.context
     const user = Auth.getUser()
 
-    const text = this.state.bookTextSearch
-    bookApi.createOrder(user, cart)
+    let totalAmount = this.handleCalculateTotal('amount');
+    let totalQuantity = this.handleCalculateTotal('quantity')
+    let mycart = { totalAmount: totalAmount, totalQuantity: totalQuantity, cart: cart }
+    bookApi.createOrder(user, mycart)
       .then(response => {
         //...
       })
@@ -129,6 +134,17 @@ class UserPage extends Component {
         handleLogError(error)
         //...
       })
+  }
+
+  handleCalculateTotal = (name) => {
+    let { cart } = this.state;
+
+    let totalAmount = cart.reduce((amount, item) => {
+      return amount + item[name]
+    }, 0)
+
+    return totalAmount;
+
   }
 
   render() {
@@ -149,6 +165,7 @@ class UserPage extends Component {
             handleRemoveBookFromCart={this.handleRemoveBookFromCart}
             handleDeleteBookFromCart={this.handleDeleteBookFromCart}
             handleCheckout={this.handleCheckout}
+            handleCalculateTotal={this.handleCalculateTotal}
           />
         </Container>
 

@@ -1,9 +1,11 @@
-import React from 'react'
-import { Button, Container, Image, Table } from 'semantic-ui-react'
+import React from 'react';
+import { Button, Container, Image, Table } from 'semantic-ui-react';
 
-function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handleDeleteBookFromCart, handleCheckout }) {
+function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handleDeleteBookFromCart, handleCheckout, handleCalculateTotal }) {
   let bookList
-  let totalPrice
+  let totalAmount = handleCalculateTotal('amount');
+
+
   if (cart.length === 0) {
     bookList = (
       <Table.Row key='no-book'>
@@ -11,10 +13,6 @@ function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handle
       </Table.Row>
     )
   } else {
-    totalPrice = cart.reduce((price, item) => {
-      return price + item.quantity * item.price
-    }, 0)
-
     bookList = cart.map(item => {
       return (
         <Table.Row key={item.isbn}>
@@ -52,6 +50,7 @@ function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handle
           <Table.Cell>{item.title}</Table.Cell>
           <Table.Cell>{item.price}</Table.Cell>
           <Table.Cell>{item.quantity}</Table.Cell>
+          <Table.Cell>{item.amount}</Table.Cell>
         </Table.Row>
       )
     })
@@ -70,6 +69,7 @@ function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handle
             <Table.HeaderCell width={2}>Title</Table.HeaderCell>
             <Table.HeaderCell width={2}>Price</Table.HeaderCell>
             <Table.HeaderCell width={2}>Quantity</Table.HeaderCell>
+            <Table.HeaderCell width={2}>Amount</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -77,12 +77,12 @@ function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handle
         </Table.Body>
       </Table>
       <Container>
-        {totalPrice > 0 &&
+        {totalAmount > 0 &&
           <Button
             color='black'
             size='small'
             onClick={() => handleCheckout(cart)}
-          >Total Price: ${totalPrice}</Button>
+          >Total Amount: ${totalAmount}</Button>
         }
       </Container>
     </>
