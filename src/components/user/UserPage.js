@@ -106,6 +106,16 @@ class UserPage extends Component {
     }
   }
 
+  handleDeleteBookFromCart = (book) => {
+    let { cart } = this.state;
+
+    this.setState({
+      cart: cart.filter((item) => {
+        return item.isbn !== book.isbn
+      })
+    })
+  }
+
   handleCheckout = (cart) => {
     const Auth = this.context
     const user = Auth.getUser()
@@ -137,6 +147,7 @@ class UserPage extends Component {
             cart={cart}
             handleAddBookToCart={this.handleAddBookToCart}
             handleRemoveBookFromCart={this.handleRemoveBookFromCart}
+            handleDeleteBookFromCart={this.handleDeleteBookFromCart}
             handleCheckout={this.handleCheckout}
           />
         </Container>

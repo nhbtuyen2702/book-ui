@@ -1,8 +1,8 @@
 import React from 'react'
-import { Button, Form, Grid, Image, Input, Table } from 'semantic-ui-react'
-import BookForm from './BookForm'
+import { Form, Grid, Image, Input, Table } from 'semantic-ui-react'
+import ModalOrderDetails from './ModalOrderDetails'
 
-function BookTable({ books, bookIsbn, bookTitle, bookTextSearch, handleSearchBook, handleAddBook, handleDeleteBook, handleInputChange }) {
+function OrderTable({ books, bookIsbn, bookTitle, bookTextSearch, handleSearchBook, handleAddBook, handleDeleteBook, handleInputChange }) {
   let bookList
   if (books.length === 0) {
     bookList = (
@@ -14,20 +14,18 @@ function BookTable({ books, bookIsbn, bookTitle, bookTextSearch, handleSearchBoo
     bookList = books.map(book => {
       return (
         <Table.Row key={book.isbn}>
-          <Table.Cell collapsing>
-            <Button
-              circular
-              color='red'
-              size='small'
-              icon='trash'
-              onClick={() => handleDeleteBook(book.isbn)}
-            />
-          </Table.Cell>
           <Table.Cell>
             <Image src={`http://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg`} size='tiny' bordered rounded />
           </Table.Cell>
           <Table.Cell>{book.isbn}</Table.Cell>
           <Table.Cell>{book.title}</Table.Cell>
+          <Table.Cell>
+            <ModalOrderDetails
+              books={books}
+              bookIsbn={bookIsbn}
+              bookTitle={bookTitle}
+            />
+          </Table.Cell>
         </Table.Row>
       )
     })
@@ -42,29 +40,21 @@ function BookTable({ books, bookIsbn, bookTitle, bookTextSearch, handleSearchBoo
               <Input
                 action={{ icon: 'search' }}
                 name='bookTextSearch'
-                placeholder='Search by ISBN or Title'
+                placeholder='Search by User'
                 value={bookTextSearch}
                 onChange={handleInputChange}
               />
             </Form>
-          </Grid.Column>
-          <Grid.Column>
-            <BookForm
-              bookIsbn={bookIsbn}
-              bookTitle={bookTitle}
-              handleAddBook={handleAddBook}
-              handleInputChange={handleInputChange}
-            />
           </Grid.Column>
         </Grid.Row>
       </Grid>
       <Table compact striped selectable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell width={1} />
-            <Table.HeaderCell width={3}>Cover</Table.HeaderCell>
-            <Table.HeaderCell width={4}>ISBN</Table.HeaderCell>
-            <Table.HeaderCell width={8}>Title</Table.HeaderCell>
+            <Table.HeaderCell width={3}>Order Num</Table.HeaderCell>
+            <Table.HeaderCell width={4}>User</Table.HeaderCell>
+            <Table.HeaderCell width={4}>Amount</Table.HeaderCell>
+            <Table.HeaderCell width={4}>Order Details</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -75,4 +65,4 @@ function BookTable({ books, bookIsbn, bookTitle, bookTextSearch, handleSearchBoo
   )
 }
 
-export default BookTable
+export default OrderTable

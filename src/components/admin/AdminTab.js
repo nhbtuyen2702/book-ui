@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tab } from 'semantic-ui-react'
 import BookTable from './BookTable'
+import OrderTable from './OrderTable'
 import UserTable from './UserTable'
 
 function AdminTab(props) {
@@ -41,9 +42,19 @@ function AdminTab(props) {
       )
     },
     {
-      menuItem: { key: 'order', icon: 'folder open', content: 'order' },
+      menuItem: { key: 'orders', icon: 'file', content: 'Orders' },
       render: () => (
         <Tab.Pane loading={isBooksLoading}>
+          <OrderTable
+            books={books}
+            bookIsbn={bookIsbn}
+            bookTitle={bookTitle}
+            bookTextSearch={bookTextSearch}
+            handleSearchBook={handleSearchBook}
+            handleAddBook={handleAddBook}
+            handleDeleteBook={handleDeleteBook}
+            handleInputChange={handleInputChange}
+          />
         </Tab.Pane>
       )
     }

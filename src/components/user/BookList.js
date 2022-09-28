@@ -9,7 +9,7 @@ function BookList({ books, bookTextSearch, handleSearchBook, handleAddBookToCart
     bookList = books.map(book => {
       return (
         <Item key={book.isbn}>
-          <Image src={`http://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg`} size='tiny' bordered rounded />
+          <Image src={`http://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg`} size='small' bordered rounded />
           <Item.Content>
             <Item.Header>{book.title}</Item.Header>
             <Item.Meta>{book.isbn}</Item.Meta>
@@ -19,6 +19,7 @@ function BookList({ books, bookTextSearch, handleSearchBook, handleAddBookToCart
             </Item.Description>
             <Item.Extra>
               <Button
+                floated='right'
                 circular
                 color='green'
                 size='small'

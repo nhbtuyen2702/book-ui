@@ -1,7 +1,7 @@
 import React from 'react'
-import { Button, Image, Table } from 'semantic-ui-react'
+import { Button, Container, Image, Table } from 'semantic-ui-react'
 
-function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handleCheckout }) {
+function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handleDeleteBookFromCart, handleCheckout }) {
   let bookList
   let totalPrice
   if (cart.length === 0) {
@@ -23,8 +23,17 @@ function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handle
               circular
               color='green'
               size='small'
-              icon='cart plus'
+              icon='plus'
               onClick={() => handleAddBookToCart(item)}
+            />
+          </Table.Cell>
+          <Table.Cell collapsing>
+            <Button
+              circular
+              color='yellow'
+              size='small'
+              icon='minus'
+              onClick={() => handleRemoveBookFromCart(item)}
             />
           </Table.Cell>
           <Table.Cell collapsing>
@@ -32,8 +41,8 @@ function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handle
               circular
               color='red'
               size='small'
-              icon='cart arrow down'
-              onClick={() => handleRemoveBookFromCart(item)}
+              icon='trash'
+              onClick={() => handleDeleteBookFromCart(item)}
             />
           </Table.Cell>
           <Table.Cell>
@@ -55,6 +64,7 @@ function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handle
           <Table.Row>
             <Table.HeaderCell width={1} />
             <Table.HeaderCell width={1} />
+            <Table.HeaderCell width={1} />
             <Table.HeaderCell width={2}>Cover</Table.HeaderCell>
             <Table.HeaderCell width={2}>ISBN</Table.HeaderCell>
             <Table.HeaderCell width={2}>Title</Table.HeaderCell>
@@ -66,13 +76,15 @@ function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handle
           {bookList}
         </Table.Body>
       </Table>
-      {totalPrice > 0 &&
-        <Button
-          color='green'
-          size='small'
-          onClick={() => handleCheckout(cart)}
-        >Total Price: ${totalPrice}</Button>
-      }
+      <Container>
+        {totalPrice > 0 &&
+          <Button
+            color='black'
+            size='small'
+            onClick={() => handleCheckout(cart)}
+          >Total Price: ${totalPrice}</Button>
+        }
+      </Container>
     </>
   )
 }

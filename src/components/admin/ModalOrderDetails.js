@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Icon, Image, Modal, Table } from 'semantic-ui-react'
 
-const ModalExampleScrollingContent = ({ books, bookIsbn, bookTitle }) => {
+const ModalOrderDetails = ({ books }) => {
   const [open, setOpen] = React.useState(false)
 
   let bookList = books.map(book => {
@@ -21,8 +21,13 @@ const ModalExampleScrollingContent = ({ books, bookIsbn, bookTitle }) => {
       open={open}
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
-      trigger={<Button>View Detail</Button>}
-      size='small'
+      trigger={
+        <Button
+          circular
+          color='blue'
+          size='small'
+        >View Details <Icon name='chevron right' /></Button>
+      }
     >
       <Modal.Header><Icon name='book' />Details</Modal.Header>
       <Modal.Content image scrolling>
@@ -41,11 +46,11 @@ const ModalExampleScrollingContent = ({ books, bookIsbn, bookTitle }) => {
       </Modal.Content>
       <Modal.Actions>
         <Button onClick={() => setOpen(false)} primary>
-          Close <Icon name='chevron right' />
+          Close
         </Button>
       </Modal.Actions>
     </Modal>
   )
 }
 
-export default ModalExampleScrollingContent
+export default ModalOrderDetails

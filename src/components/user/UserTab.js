@@ -6,7 +6,7 @@ import BookTable from './BookTable'
 function UserTab(props) {
     const { handleInputChange } = props
     const { books, bookTextSearch, handleSearchBook, isBooksLoading } = props
-    const { cart, handleAddBookToCart, handleRemoveBookFromCart, handleCheckout } = props
+    const { cart, handleAddBookToCart, handleRemoveBookFromCart, handleDeleteBookFromCart, handleCheckout } = props
 
     let totalQuantity = cart.reduce((quantity, item) => {
         return quantity + item.quantity
@@ -38,6 +38,7 @@ function UserTab(props) {
                         handleSearchBook={handleSearchBook}
                         handleAddBookToCart={handleAddBookToCart}
                         handleRemoveBookFromCart={handleRemoveBookFromCart}
+                        handleDeleteBookFromCart={handleDeleteBookFromCart}
                         handleCheckout={handleCheckout}
                         handleInputChange={handleInputChange}
                     />
