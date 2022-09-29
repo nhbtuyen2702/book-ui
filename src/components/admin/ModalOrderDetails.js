@@ -4,16 +4,13 @@ import { bookApi } from '../misc/BookApi'
 
 const ModalOrderDetails = ({ orderId, user }) => {
   const [open, setOpen] = React.useState(false)
-  const [orderDetails, setOrderDetails] = React.useState([])
+  const [orderDetailList, setOrderDetailList] = React.useState([])
 
-  let orderDetailList
-  myFunction();
-
-  async function myFunction() {
+  async function fetchOrderDetails() {
     let response = await bookApi.getOrderDetails(user, orderId)
 
     if (response != '') {
-      orderDetailList = orderDetails.data.map(orderDetail => {
+      let list = response.data.map(orderDetail => {
         return (
           <Table.Row key={orderDetail.id}>
             <Table.Cell>
@@ -22,14 +19,13 @@ const ModalOrderDetails = ({ orderId, user }) => {
             <Table.Cell>{orderDetail.book.isbn}</Table.Cell>
             <Table.Cell>{orderDetail.book.title}</Table.Cell>
             <Table.Cell>{orderDetail.book.price}</Table.Cell>
-            <Table.Cell>{orderDetail.book.quantity}</Table.Cell>
-            <Table.Cell>{orderDetail.book.amount}</Table.Cell>
+            <Table.Cell>{orderDetail.quantity}</Table.Cell>
+            <Table.Cell>{orderDetail.amount}</Table.Cell>
           </Table.Row>
         )
       })
-      setOrderDetails(response)
+      setOrderDetailList(list)
     }
-
   }
 
   return (
@@ -42,6 +38,7 @@ const ModalOrderDetails = ({ orderId, user }) => {
           circular
           color='blue'
           size='small'
+          onClick={fetchOrderDetails}
         >View Details <Icon name='chevron right' /></Button>
       }
     >
