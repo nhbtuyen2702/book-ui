@@ -8,7 +8,7 @@ function OrderTable({ orders, orderTextSearch, handleSearchOrder, user, handleIn
   if (orders.length === 0) {
     orderList = (
       <Table.Row key='no-order'>
-        <Table.Cell collapsing textAlign='center' colSpan='4'>No order</Table.Cell>
+        <Table.Cell collapsing textAlign='center' colSpan='8'>No order</Table.Cell>
       </Table.Row>
     )
   } else {
