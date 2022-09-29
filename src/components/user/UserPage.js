@@ -125,14 +125,17 @@ class UserPage extends Component {
 
     let totalAmount = this.handleCalculateTotal('amount');
     let totalQuantity = this.handleCalculateTotal('quantity')
-    let mycart = { totalAmount: totalAmount, totalQuantity: totalQuantity, cart: cart }
+    let mycart = { totalAmount: totalAmount, totalQuantity: totalQuantity, name: user.name, books: cart }
+
     bookApi.createOrder(user, mycart)
       .then(response => {
-        //...
+        console.log('success.');
       })
       .catch(error => {
         handleLogError(error)
-        //...
+      })
+      .finally(() => {
+        console.log('finally.');
       })
   }
 

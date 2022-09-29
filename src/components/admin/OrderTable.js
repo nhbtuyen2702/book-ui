@@ -1,29 +1,29 @@
 import React from 'react'
-import { Form, Grid, Image, Input, Table } from 'semantic-ui-react'
+import { Form, Grid, Input, Table } from 'semantic-ui-react'
 import ModalOrderDetails from './ModalOrderDetails'
 
-function OrderTable({ books, bookIsbn, bookTitle, bookTextSearch, handleSearchBook, handleAddBook, handleDeleteBook, handleInputChange }) {
-  let bookList
-  if (books.length === 0) {
-    bookList = (
-      <Table.Row key='no-book'>
-        <Table.Cell collapsing textAlign='center' colSpan='4'>No book</Table.Cell>
+function OrderTable({ orders, orderTextSearch, handleSearchOrder, user, handleInputChange }) {
+  let orderList
+
+  if (orders.length === 0) {
+    orderList = (
+      <Table.Row key='no-order'>
+        <Table.Cell collapsing textAlign='center' colSpan='4'>No order</Table.Cell>
       </Table.Row>
     )
   } else {
-    bookList = books.map(book => {
+    orderList = orders.map(order => {
       return (
-        <Table.Row key={book.isbn}>
-          <Table.Cell>
-            <Image src={`http://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg`} size='tiny' bordered rounded />
-          </Table.Cell>
-          <Table.Cell>{book.isbn}</Table.Cell>
-          <Table.Cell>{book.title}</Table.Cell>
+        <Table.Row key={order.id}>
+          <Table.Cell>{order.orderNum}</Table.Cell>
+          <Table.Cell>{order.orderDate}</Table.Cell>
+          <Table.Cell>{order.name}</Table.Cell>
+          <Table.Cell>{order.totalQuantity}</Table.Cell>
+          <Table.Cell>{order.totalAmount}</Table.Cell>
           <Table.Cell>
             <ModalOrderDetails
-              books={books}
-              bookIsbn={bookIsbn}
-              bookTitle={bookTitle}
+              orderId={order.id}
+              user={user}
             />
           </Table.Cell>
         </Table.Row>
@@ -36,12 +36,12 @@ function OrderTable({ books, bookIsbn, bookTitle, bookTextSearch, handleSearchBo
       <Grid stackable divided>
         <Grid.Row columns='2'>
           <Grid.Column width='5'>
-            <Form onSubmit={handleSearchBook}>
+            <Form onSubmit={handleSearchOrder}>
               <Input
                 action={{ icon: 'search' }}
-                name='bookTextSearch'
-                placeholder='Search by User'
-                value={bookTextSearch}
+                name='orderTextSearch'
+                placeholder='Search by Name'
+                value={orderTextSearch}
                 onChange={handleInputChange}
               />
             </Form>
@@ -51,14 +51,16 @@ function OrderTable({ books, bookIsbn, bookTitle, bookTextSearch, handleSearchBo
       <Table compact striped selectable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell width={3}>Order Num</Table.HeaderCell>
-            <Table.HeaderCell width={4}>User</Table.HeaderCell>
-            <Table.HeaderCell width={4}>Amount</Table.HeaderCell>
-            <Table.HeaderCell width={4}>Order Details</Table.HeaderCell>
+            <Table.HeaderCell width={2}>Order Num</Table.HeaderCell>
+            <Table.HeaderCell width={2}>Order Date</Table.HeaderCell>
+            <Table.HeaderCell width={2}>Name</Table.HeaderCell>
+            <Table.HeaderCell width={2}>Total Quantity</Table.HeaderCell>
+            <Table.HeaderCell width={2}>Total Amount</Table.HeaderCell>
+            <Table.HeaderCell width={2}>View Details</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {bookList}
+          {orderList}
         </Table.Body>
       </Table>
     </>

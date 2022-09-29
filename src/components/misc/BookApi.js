@@ -5,12 +5,15 @@ export const bookApi = {
   authenticate,
   signup,
   numberOfBooks,
-  numberOfUsers,
   getBooks,
+  numberOfUsers,
   addBook,
   deleteBook,
   getUsers,
-  deleteUser
+  deleteUser,
+  createOrder,
+  getOrders,
+  getOrderDetails
 }
 
 function authenticate(username, password) {
@@ -64,6 +67,28 @@ function getUsers(user, username) {
 
 function deleteUser(user, username) {
   return instance.delete(`/api/users/${username}`, {
+    headers: { 'Authorization': basicAuth(user) }
+  })
+}
+
+function createOrder(user, cart) {
+  return instance.post('/api/orders/checkout', cart, {
+    headers: {
+      'Content-type': 'application/json',
+      'Authorization': basicAuth(user)
+    }
+  })
+}
+
+function getOrders(user, text) {
+  const url = text ? `/api/orders?text=${text}` : '/api/orders'
+  return instance.get(url, {
+    headers: { 'Authorization': basicAuth(user) }
+  })
+}
+
+function getOrderDetails(user, orderId) {
+  return instance.get(`/api/orders/${orderId}`, {
     headers: { 'Authorization': basicAuth(user) }
   })
 }

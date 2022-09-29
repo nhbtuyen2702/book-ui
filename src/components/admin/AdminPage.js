@@ -19,7 +19,9 @@ class AdminPage extends Component {
     userUsernameSearch: '',
     isUsersLoading: false,
     isAdmin: true,
-
+    orders: [],
+    orderTextSearch: '',
+    isOrdersLoading: false
   }
 
   componentDidMount() {
@@ -30,6 +32,7 @@ class AdminPage extends Component {
 
     this.handleGetUsers()
     this.handleGetBooks()
+    this.handleGetOrders()
   }
 
   handleGetUsers = () => {
@@ -63,6 +66,23 @@ class AdminPage extends Component {
       })
       .finally(() => {
         this.setState({ isBooksLoading: false })
+      })
+  }
+
+  handleGetOrders = () => {
+    const Auth = this.context
+    const user = Auth.getUser()
+
+    this.setState({ isOrdersLoading: true })
+    bookApi.getOrders(user)
+      .then(response => {
+        this.setState({ orders: response.data })
+      })
+      .catch(error => {
+        handleLogError(error)
+      })
+      .finally(() => {
+        this.setState({ isOrdersLoading: false })
       })
   }
 
@@ -157,11 +177,30 @@ class AdminPage extends Component {
     })
   }
 
+  handleSearchOrder = () => {
+    const Auth = this.context
+    const user = Auth.getUser()
+
+    const text = this.state.orderTextSearch
+    bookApi.getOrders(user, text)
+      .then(response => {
+        const orders = response.data
+        this.setState({ orders })
+      })
+      .catch(error => {
+        handleLogError(error)
+        this.setState({ orders: [] })
+      })
+  }
+
   render() {
     if (!this.state.isAdmin) {
       return <Redirect to='/' />
     } else {
-      const { books, bookIsbn, bookTitle, bookTextSearch, isBooksLoading, users, userUsernameSearch, isUsersLoading } = this.state
+      const Auth = this.context
+      const user = Auth.getUser()
+
+      const { books, bookIsbn, bookTitle, bookTextSearch, isBooksLoading, users, userUsernameSearch, isUsersLoading, orders, orderTextSearch, isOrdersLoading } = this.state
       return (
         <Container>
           <AdminTab //gọi component AdminTab -->chạy vào Constructor và render
@@ -179,6 +218,13 @@ class AdminPage extends Component {
             isUsersLoading={isUsersLoading}
             handleSearchUser={this.handleSearchUser}
             handleDeleteUser={this.handleDeleteUser}
+
+            orders={orders}
+            orderTextSearch={orderTextSearch}
+            isOrdersLoading={isOrdersLoading}
+            handleSearchOrder={this.handleSearchOrder}
+
+            user={user}
           />
         </Container>
       )

@@ -7,6 +7,7 @@ import UserTable from './UserTable'
 function AdminTab(props) {
   const { books, bookIsbn, bookTitle, bookTextSearch, isBooksLoading, handleSearchBook, handleAddBook, handleDeleteBook } = props
   const { users, userUsernameSearch, isUsersLoading, handleSearchUser, handleDeleteUser } = props
+  const { orders, orderTextSearch, isOrdersLoading, handleSearchOrder, user } = props
   const { handleInputChange } = props
 
   const panes = [
@@ -44,16 +45,13 @@ function AdminTab(props) {
     {
       menuItem: { key: 'orders', icon: 'file', content: 'Orders' },
       render: () => (
-        <Tab.Pane loading={isBooksLoading}>
+        <Tab.Pane loading={isOrdersLoading}>
           <OrderTable
-            books={books}
-            bookIsbn={bookIsbn}
-            bookTitle={bookTitle}
-            bookTextSearch={bookTextSearch}
-            handleSearchBook={handleSearchBook}
-            handleAddBook={handleAddBook}
-            handleDeleteBook={handleDeleteBook}
+            orders={orders}
+            orderTextSearch={orderTextSearch}
+            handleSearchOrder={handleSearchOrder}
             handleInputChange={handleInputChange}
+            user={user}
           />
         </Tab.Pane>
       )

@@ -8,9 +8,7 @@ function UserTab(props) {
     const { books, bookTextSearch, handleSearchBook, isBooksLoading } = props
     const { cart, handleAddBookToCart, handleRemoveBookFromCart, handleDeleteBookFromCart, handleCheckout, handleCalculateTotal } = props
 
-    let totalQuantity = cart.reduce((quantity, item) => {
-        return quantity + item.quantity
-    }, 0)
+    let totalQuantity = handleCalculateTotal('quantity');
 
     const panes = [
         {

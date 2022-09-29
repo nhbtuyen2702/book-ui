@@ -1,20 +1,36 @@
 import React from 'react'
 import { Button, Icon, Image, Modal, Table } from 'semantic-ui-react'
+import { bookApi } from '../misc/BookApi'
 
-const ModalOrderDetails = ({ books }) => {
+const ModalOrderDetails = ({ orderId, user }) => {
   const [open, setOpen] = React.useState(false)
+  const [orderDetails, setOrderDetails] = React.useState([])
 
-  let bookList = books.map(book => {
-    return (
-      <Table.Row key={book.isbn}>
-        <Table.Cell>
-          <Image src={`http://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg`} size='tiny' bordered rounded />
-        </Table.Cell>
-        <Table.Cell>{book.isbn}</Table.Cell>
-        <Table.Cell>{book.title}</Table.Cell>
-      </Table.Row>
-    )
-  })
+  let orderDetailList
+  myFunction();
+
+  async function myFunction() {
+    let response = await bookApi.getOrderDetails(user, orderId)
+
+    if (response != '') {
+      orderDetailList = orderDetails.data.map(orderDetail => {
+        return (
+          <Table.Row key={orderDetail.id}>
+            <Table.Cell>
+              <Image src={`http://covers.openlibrary.org/b/isbn/${orderDetail.book.isbn}-M.jpg`} size='tiny' bordered rounded />
+            </Table.Cell>
+            <Table.Cell>{orderDetail.book.isbn}</Table.Cell>
+            <Table.Cell>{orderDetail.book.title}</Table.Cell>
+            <Table.Cell>{orderDetail.book.price}</Table.Cell>
+            <Table.Cell>{orderDetail.book.quantity}</Table.Cell>
+            <Table.Cell>{orderDetail.book.amount}</Table.Cell>
+          </Table.Row>
+        )
+      })
+      setOrderDetails(response)
+    }
+
+  }
 
   return (
     <Modal
@@ -35,12 +51,15 @@ const ModalOrderDetails = ({ books }) => {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell width={3}>Cover</Table.HeaderCell>
-              <Table.HeaderCell width={4}>ISBN</Table.HeaderCell>
-              <Table.HeaderCell width={8}>Title</Table.HeaderCell>
+              <Table.HeaderCell width={3}>ISBN</Table.HeaderCell>
+              <Table.HeaderCell width={3}>Title</Table.HeaderCell>
+              <Table.HeaderCell width={3}>Price</Table.HeaderCell>
+              <Table.HeaderCell width={3}>Quantity</Table.HeaderCell>
+              <Table.HeaderCell width={3}>Amount</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {bookList}
+            {orderDetailList}
           </Table.Body>
         </Table>
       </Modal.Content>
