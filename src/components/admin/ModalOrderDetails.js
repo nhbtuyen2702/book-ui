@@ -6,7 +6,7 @@ const ModalOrderDetails = ({ orderId, user }) => {
   const [open, setOpen] = React.useState(false)
   const [orderDetailList, setOrderDetailList] = React.useState([])
 
-  async function fetchOrderDetails() {
+  async function handleGetOrderDetails() {
     let response = await bookApi.getOrderDetails(user, orderId)
 
     if (response != '') {
@@ -38,7 +38,7 @@ const ModalOrderDetails = ({ orderId, user }) => {
           circular
           color='blue'
           size='small'
-          onClick={fetchOrderDetails}
+          onClick={handleGetOrderDetails}
         >View Details <Icon name='chevron right' /></Button>
       }
     >

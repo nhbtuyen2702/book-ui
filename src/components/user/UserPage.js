@@ -129,6 +129,7 @@ class UserPage extends Component {
 
     bookApi.createOrder(user, mycart)
       .then(response => {
+        alert('Thanks for your order.')
         this.setState({
           cart: []
         })
