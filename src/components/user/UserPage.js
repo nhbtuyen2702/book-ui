@@ -73,7 +73,7 @@ class UserPage extends Component {
     if (bookExist) {
       this.setState({
         cart: cart.map((item) => {
-          return item.isbn === book.isbn ? { ...bookExist, quantity: bookExist.quantity + 1, amount: book.price * (bookExist.quantity + 1) } : item
+          return item.isbn === book.isbn ? { ...bookExist, quantity: bookExist.quantity + 1, amount: bookExist.price * (bookExist.quantity + 1) } : item
         })
       })
     } else {
