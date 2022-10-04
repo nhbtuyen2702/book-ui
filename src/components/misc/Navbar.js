@@ -20,8 +20,14 @@ function Navbar() { //Constructor sẽ luôn được chạy đầu tiên
   const enterMenuStyle = () => {
     return userIsAuthenticated() ? { "display": "none" } : { "display": "block" }
   }
+
   const logoutMenuStyle = () => {
     return userIsAuthenticated() ? { "display": "block" } : { "display": "none" }
+  }
+
+  const colorMenuStyle = () => {
+    const user = getUser()
+    return user && user.role === 'ADMIN' ? 'teal' : 'blue'
   }
 
   const logout = () => {
@@ -36,7 +42,7 @@ function Navbar() { //Constructor sẽ luôn được chạy đầu tiên
   //render/return sẽ luôn được chạy sau Constructor -->tất cả các phương thức trong return sẽ được chạy
   //trong render/return muốn hiển thị giá trị hoặc gọi bất kỳ phương thức nào thì dùng dấu {}
   return (
-    <Menu inverted color='blue' stackable size='massive' style={{ borderRadius: 0 }}>
+    <Menu inverted color={colorMenuStyle()} stackable size='massive' style={{ borderRadius: 0 }}>
       <Container>
         <Menu.Item header>Book-UI</Menu.Item>
         <Menu.Item as={Link} exact='true' to="/">Home</Menu.Item>

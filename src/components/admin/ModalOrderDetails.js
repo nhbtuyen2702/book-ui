@@ -36,7 +36,7 @@ const ModalOrderDetails = ({ orderId, user }) => {
       trigger={
         <Button
           circular
-          color='blue'
+          color='teal'
           size='small'
           onClick={handleGetOrderDetails}
         >View Details <Icon name='chevron right' /></Button>
@@ -61,7 +61,7 @@ const ModalOrderDetails = ({ orderId, user }) => {
         </Table>
       </Modal.Content>
       <Modal.Actions>
-        <Button onClick={() => setOpen(false)} primary>
+        <Button onClick={() => setOpen(false)} color='teal'>
           Close
         </Button>
       </Modal.Actions>

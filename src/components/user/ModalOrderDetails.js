@@ -61,7 +61,7 @@ const ModalOrderDetails = ({ orderId, user }) => {
         </Table>
       </Modal.Content>
       <Modal.Actions>
-        <Button onClick={() => setOpen(false)} primary>
+        <Button onClick={() => setOpen(false)}  color='blue'>
           Close
         </Button>
       </Modal.Actions>

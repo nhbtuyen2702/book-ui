@@ -21,7 +21,7 @@ function BookList({ books, bookTextSearch, handleSearchBook, handleAddBookToCart
               <Button
                 floated='right'
                 circular
-                color='green'
+                color='blue'
                 size='small'
                 icon='add to cart'
                 disabled={book.title === 'admin'}
