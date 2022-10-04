@@ -136,6 +136,7 @@ class UserPage extends Component {
         this.setState({
           cart: []
         })
+        this.handleGetOrders()
         console.log('success.');
       })
       .catch(error => {
