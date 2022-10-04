@@ -14,7 +14,9 @@ class UserPage extends Component {
     bookTextSearch: '',
     isBooksLoading: false,
     isUser: true,
-    cart: []
+    cart: [],
+    orders: [],
+    isOrdersLoading: false
   }
 
   componentDidMount() {
@@ -24,6 +26,7 @@ class UserPage extends Component {
     this.setState({ isUser })
 
     this.handleGetBooks()
+    this.handleGetOrders()
   }
 
   handleInputChange = (e, { name, value }) => {
@@ -151,14 +154,36 @@ class UserPage extends Component {
     }, 0)
 
     return totalAmount;
-
   }
+
+  handleGetOrders = () => {
+    const Auth = this.context
+    const user = Auth.getUser()
+
+    const text = user.name;
+
+    this.setState({ isOrdersLoading: true })
+    bookApi.getOrders(user, text)
+      .then(response => {
+        this.setState({ orders: response.data })
+      })
+      .catch(error => {
+        handleLogError(error)
+      })
+      .finally(() => {
+        this.setState({ isOrdersLoading: false })
+      })
+  }
+
 
   render() {
     if (!this.state.isUser) {
       return <Redirect to='/' />
     } else {
-      const { books, bookTextSearch, isBooksLoading, cart } = this.state
+      const Auth = this.context
+      const user = Auth.getUser()
+
+      const { books, bookTextSearch, isBooksLoading, cart, orders, isOrdersLoading } = this.state
       return (
         <Container>
           <UserTab
@@ -173,6 +198,9 @@ class UserPage extends Component {
             handleDeleteBookFromCart={this.handleDeleteBookFromCart}
             handleCheckout={this.handleCheckout}
             handleCalculateTotal={this.handleCalculateTotal}
+            orders={orders}
+            isOrdersLoading={isOrdersLoading}
+            user={user}
           />
         </Container>
 

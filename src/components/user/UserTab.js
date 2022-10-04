@@ -2,11 +2,13 @@ import React from 'react'
 import { Tab } from 'semantic-ui-react'
 import BookList from './BookList'
 import BookTable from './BookTable'
+import OrderTable from './OrderTable'
 
 function UserTab(props) {
     const { handleInputChange } = props
     const { books, bookTextSearch, handleSearchBook, isBooksLoading } = props
     const { cart, handleAddBookToCart, handleRemoveBookFromCart, handleDeleteBookFromCart, handleCheckout, handleCalculateTotal } = props
+    const { orders, isOrdersLoading, user } = props
 
     let totalQuantity = handleCalculateTotal('quantity');
 
@@ -40,6 +42,17 @@ function UserTab(props) {
                         handleCheckout={handleCheckout}
                         handleInputChange={handleInputChange}
                         handleCalculateTotal={handleCalculateTotal}
+                    />
+                </Tab.Pane>
+            )
+        },
+        {
+            menuItem: { key: 'orders', icon: 'file', content: 'Your Orders' },
+            render: () => (
+                <Tab.Pane loading={isOrdersLoading}>
+                    <OrderTable
+                        orders={orders}
+                        user={user}
                     />
                 </Tab.Pane>
             )
