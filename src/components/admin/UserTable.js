@@ -49,10 +49,10 @@ function UserTable({ users, userUsernameSearch, handleSearchUser, handleDeleteUs
           <Table.Row>
             <Table.HeaderCell width={1} />
             <Table.HeaderCell width={1}>ID</Table.HeaderCell>
-            <Table.HeaderCell width={3}>Username</Table.HeaderCell>
-            <Table.HeaderCell width={4}>Name</Table.HeaderCell>
-            <Table.HeaderCell width={5}>Email</Table.HeaderCell>
-            <Table.HeaderCell width={2}>Role</Table.HeaderCell>
+            <Table.HeaderCell width={1}>Username</Table.HeaderCell>
+            <Table.HeaderCell width={1}>Name</Table.HeaderCell>
+            <Table.HeaderCell width={1}>Email</Table.HeaderCell>
+            <Table.HeaderCell width={1}>Role</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>

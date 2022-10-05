@@ -1,10 +1,12 @@
 import React from 'react'
 import { Button, Form, Icon } from 'semantic-ui-react'
 
-function BookForm({ bookIsbn, bookTitle, handleAddBook, handleInputChange }) {
-  const createBtnDisabled = bookIsbn.trim() === '' || bookTitle.trim() === ''
+function BookForm({ bookIsbn, bookTitle, bookPrice, handleAddOrUpdateBook, clearBookForm, handleInputChange }) {
+  const createBtnDisabled = bookIsbn.trim() === '' || bookTitle.trim() === '' || bookPrice === ''
+  const clearBtnDisabled = bookIsbn.trim() === '' && bookTitle.trim() === '' && bookPrice === ''
+
   return (
-    <Form onSubmit={handleAddBook}>
+    <Form>
       <Form.Group>
         <Form.Input
           name='bookIsbn'
@@ -18,8 +20,17 @@ function BookForm({ bookIsbn, bookTitle, handleAddBook, handleInputChange }) {
           value={bookTitle}
           onChange={handleInputChange}
         />
-        <Button icon labelPosition='right' disabled={createBtnDisabled}>
-          Create<Icon name='add' />
+        <Form.Input
+          name='bookPrice'
+          placeholder='Price *'
+          value={bookPrice}
+          onChange={handleInputChange}
+        />
+        <Button icon labelPosition='right' disabled={createBtnDisabled} onClick={handleAddOrUpdateBook}>
+          Save<Icon name='save' />
+        </Button>
+        <Button icon labelPosition='right' disabled={clearBtnDisabled} onClick={clearBookForm}>
+          Clear<Icon name='delete' />
         </Button>
       </Form.Group>
     </Form>

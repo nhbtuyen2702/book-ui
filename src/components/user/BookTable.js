@@ -5,7 +5,6 @@ function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handle
   let bookList
   let totalAmount = handleCalculateTotal('amount');
 
-
   if (cart.length === 0) {
     bookList = (
       <Table.Row key='no-book'>
@@ -64,12 +63,12 @@ function BookTable({ cart, handleAddBookToCart, handleRemoveBookFromCart, handle
             <Table.HeaderCell width={1} />
             <Table.HeaderCell width={1} />
             <Table.HeaderCell width={1} />
-            <Table.HeaderCell width={2}>Cover</Table.HeaderCell>
-            <Table.HeaderCell width={2}>ISBN</Table.HeaderCell>
-            <Table.HeaderCell width={2}>Title</Table.HeaderCell>
-            <Table.HeaderCell width={2}>Price</Table.HeaderCell>
-            <Table.HeaderCell width={2}>Quantity</Table.HeaderCell>
-            <Table.HeaderCell width={2}>Amount</Table.HeaderCell>
+            <Table.HeaderCell width={1}>Cover</Table.HeaderCell>
+            <Table.HeaderCell width={1}>ISBN</Table.HeaderCell>
+            <Table.HeaderCell width={1}>Title</Table.HeaderCell>
+            <Table.HeaderCell width={1}>Price</Table.HeaderCell>
+            <Table.HeaderCell width={1}>Quantity</Table.HeaderCell>
+            <Table.HeaderCell width={1}>Amount</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>

@@ -36,12 +36,12 @@ function OrderTable({ orders, user }) {
       <Table compact striped selectable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell width={2}>Order Num</Table.HeaderCell>
-            <Table.HeaderCell width={2}>Order Date</Table.HeaderCell>
-            <Table.HeaderCell width={2}>Name</Table.HeaderCell>
-            <Table.HeaderCell width={2}>Total Quantity</Table.HeaderCell>
-            <Table.HeaderCell width={2}>Total Amount</Table.HeaderCell>
-            <Table.HeaderCell width={2}>View Details</Table.HeaderCell>
+            <Table.HeaderCell width={1}>Order Num</Table.HeaderCell>
+            <Table.HeaderCell width={1}>Order Date</Table.HeaderCell>
+            <Table.HeaderCell width={1}>Name</Table.HeaderCell>
+            <Table.HeaderCell width={1}>Total Quantity</Table.HeaderCell>
+            <Table.HeaderCell width={1}>Total Amount</Table.HeaderCell>
+            <Table.HeaderCell width={1}>View Details</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>

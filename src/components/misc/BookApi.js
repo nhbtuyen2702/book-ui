@@ -2,38 +2,14 @@ import axios from 'axios'
 import { config } from '../../Constants'
 
 export const bookApi = {
-  authenticate,
-  signup,
   numberOfBooks,
   getBooks,
-  numberOfUsers,
-  addBook,
+  addOrUpdateBook,
   deleteBook,
-  getUsers,
-  deleteUser,
-  createOrder,
-  getOrders,
-  getOrderDetails
-}
-
-function authenticate(username, password) {
-  return instance.post('/auth/authenticate', { username, password }, {
-    headers: { 'Content-type': 'application/json' }
-  })
-}
-
-function signup(user) {
-  return instance.post('/auth/signup', user, {
-    headers: { 'Content-type': 'application/json' }
-  })
 }
 
 function numberOfBooks() {
   return instance.get('/public/numberOfBooks')
-}
-
-function numberOfUsers() {
-  return instance.get('/public/numberOfUsers')
 }
 
 function getBooks(user, text) {
@@ -43,7 +19,7 @@ function getBooks(user, text) {
   })
 }
 
-function addBook(user, book) {
+function addOrUpdateBook(user, book) {
   return instance.post('/api/books', book, {
     headers: {
       'Content-type': 'application/json',
@@ -58,49 +34,12 @@ function deleteBook(user, isbn) {
   })
 }
 
-function getUsers(user, username) {
-  const url = username ? `/api/users/${username}` : '/api/users'
-  return instance.get(url, {
-    headers: { 'Authorization': basicAuth(user) }
-  })
-}
-
-function deleteUser(user, username) {
-  return instance.delete(`/api/users/${username}`, {
-    headers: { 'Authorization': basicAuth(user) }
-  })
-}
-
-function createOrder(user, cart) {
-  return instance.post('/api/orders/checkout', cart, {
-    headers: {
-      'Content-type': 'application/json',
-      'Authorization': basicAuth(user)
-    }
-  })
-}
-
-function getOrders(user, text) {
-  const url = text ? `/api/orders?text=${text}` : '/api/orders'
-  return instance.get(url, {
-    headers: { 'Authorization': basicAuth(user) }
-  })
-}
-
-function getOrderDetails(user, orderId) {
-  return instance.get(`/api/orders/${orderId}`, {
-    headers: { 'Authorization': basicAuth(user) }
-  })
-}
-
 // -- Axios
-
 const instance = axios.create({
   baseURL: config.url.API_BASE_URL
 })
 
 // -- Helper functions
-
 function basicAuth(user) {
   return `Basic ${user.authdata}`
 }

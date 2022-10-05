@@ -5,7 +5,7 @@ import OrderTable from './OrderTable'
 import UserTable from './UserTable'
 
 function AdminTab(props) {
-  const { books, bookIsbn, bookTitle, bookTextSearch, isBooksLoading, handleSearchBook, handleAddBook, handleDeleteBook } = props
+  const { books, bookIsbn, bookTitle, bookPrice, bookTextSearch, isBooksLoading, handleSearchBook, handleAddOrUpdateBook, handleBindBook, clearBookForm } = props
   const { users, userUsernameSearch, isUsersLoading, handleSearchUser, handleDeleteUser } = props
   const { orders, orderTextSearch, isOrdersLoading, handleSearchOrder, user } = props
   const { handleInputChange } = props
@@ -33,10 +33,12 @@ function AdminTab(props) {
             books={books}
             bookIsbn={bookIsbn}
             bookTitle={bookTitle}
+            bookPrice={bookPrice}
             bookTextSearch={bookTextSearch}
             handleSearchBook={handleSearchBook}
-            handleAddBook={handleAddBook}
-            handleDeleteBook={handleDeleteBook}
+            handleAddOrUpdateBook={handleAddOrUpdateBook}
+            handleBindBook={handleBindBook}
+            clearBookForm={clearBookForm}
             handleInputChange={handleInputChange}
           />
         </Tab.Pane>

@@ -4,6 +4,7 @@ import { Container } from 'semantic-ui-react'
 import AuthContext from '../context/AuthContext'
 import { bookApi } from '../misc/BookApi'
 import { handleLogError } from '../misc/Helpers'
+import { orderApi } from '../misc/OrderApi'
 import UserTab from './UserTab'
 
 class UserPage extends Component {
@@ -130,7 +131,7 @@ class UserPage extends Component {
     let totalQuantity = this.handleCalculateTotal('quantity')
     let mycart = { totalAmount: totalAmount, totalQuantity: totalQuantity, name: user.name, books: cart }
 
-    bookApi.createOrder(user, mycart)
+    orderApi.createOrder(user, mycart)
       .then(response => {
         alert('Thanks for your order.')
         this.setState({
@@ -164,7 +165,7 @@ class UserPage extends Component {
     const text = user.name;
 
     this.setState({ isOrdersLoading: true })
-    bookApi.getOrders(user, text)
+    orderApi.getOrders(user, text)
       .then(response => {
         this.setState({ orders: response.data })
       })

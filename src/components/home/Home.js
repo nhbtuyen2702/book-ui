@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Container, Dimmer, Grid, Icon, Image, Loader, Segment, Statistic } from 'semantic-ui-react'
 import { bookApi } from '../misc/BookApi'
 import { handleLogError } from '../misc/Helpers'
+import { userApi } from '../misc/UserApi'
 
 class Home extends Component {
   state = {
@@ -13,7 +14,7 @@ class Home extends Component {
   async componentDidMount() {
     this.setState({ isLoading: true })
     try {
-      let response = await bookApi.numberOfUsers()
+      let response = await userApi.numberOfUsers()
       const numberOfUsers = response.data
 
       response = await bookApi.numberOfBooks()

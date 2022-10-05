@@ -4,6 +4,8 @@ import { Container } from 'semantic-ui-react'
 import AuthContext from '../context/AuthContext'
 import { bookApi } from '../misc/BookApi'
 import { handleLogError } from '../misc/Helpers'
+import { orderApi } from '../misc/OrderApi'
+import { userApi } from '../misc/UserApi'
 import AdminTab from './AdminTab'
 
 class AdminPage extends Component {
@@ -13,6 +15,7 @@ class AdminPage extends Component {
     books: [],
     bookIsbn: '',
     bookTitle: '',
+    bookPrice: '',
     bookTextSearch: '',
     isBooksLoading: false,
     users: [],
@@ -40,7 +43,7 @@ class AdminPage extends Component {
     const user = Auth.getUser()
 
     this.setState({ isUsersLoading: true })
-    bookApi.getUsers(user)
+    userApi.getUsers(user)
       .then(response => {
         this.setState({ users: response.data })
       })
@@ -74,7 +77,7 @@ class AdminPage extends Component {
     const user = Auth.getUser()
 
     this.setState({ isOrdersLoading: true })
-    bookApi.getOrders(user)
+    orderApi.getOrders(user)
       .then(response => {
         this.setState({ orders: response.data })
       })
@@ -94,7 +97,7 @@ class AdminPage extends Component {
     const Auth = this.context
     const user = Auth.getUser()
 
-    bookApi.deleteUser(user, username)
+    userApi.deleteUser(user, username)
       .then(() => {
         this.handleGetUsers()
       })
@@ -108,7 +111,7 @@ class AdminPage extends Component {
     const user = Auth.getUser()
 
     const username = this.state.userUsernameSearch
-    bookApi.getUsers(user, username)
+    userApi.getUsers(user, username)
       .then(response => {
         const data = response.data
         const users = data instanceof Array ? data : [data]
@@ -136,19 +139,19 @@ class AdminPage extends Component {
       })
   }
 
-  handleAddBook = () => {
+  handleAddOrUpdateBook = () => {
     const Auth = this.context
     const user = Auth.getUser()
 
-    let { bookIsbn, bookTitle } = this.state
+    let { bookIsbn, bookTitle, bookPrice } = this.state
     bookIsbn = bookIsbn.trim()
     bookTitle = bookTitle.trim()
-    if (!(bookIsbn && bookTitle)) {
+    if (!(bookIsbn && bookTitle && bookPrice)) {
       return
     }
 
-    const book = { isbn: bookIsbn, title: bookTitle }
-    bookApi.addBook(user, book)
+    const book = { isbn: bookIsbn, title: bookTitle, price: bookPrice }
+    bookApi.addOrUpdateBook(user, book)
       .then(() => {
         this.clearBookForm()
         this.handleGetBooks()
@@ -158,22 +161,19 @@ class AdminPage extends Component {
       })
   }
 
-  handleDeleteBook = (isbn) => {
-    const Auth = this.context
-    const user = Auth.getUser()
-
-    bookApi.deleteBook(user, isbn)
-      .then(() => {
-        this.handleGetBooks()
-      })
-      .catch(error => {
-        handleLogError(error)
-      })
-  }
   clearBookForm = () => {
     this.setState({
       bookIsbn: '',
-      bookTitle: ''
+      bookTitle: '',
+      bookPrice: ''
+    })
+  }
+
+  handleBindBook = (book) => {
+    this.setState({
+      bookIsbn: book.isbn,
+      bookTitle: book.title,
+      bookPrice: book.price
     })
   }
 
@@ -182,7 +182,7 @@ class AdminPage extends Component {
     const user = Auth.getUser()
 
     const text = this.state.orderTextSearch
-    bookApi.getOrders(user, text)
+    orderApi.getOrders(user, text)
       .then(response => {
         const orders = response.data
         this.setState({ orders })
@@ -200,19 +200,22 @@ class AdminPage extends Component {
       const Auth = this.context
       const user = Auth.getUser()
 
-      const { books, bookIsbn, bookTitle, bookTextSearch, isBooksLoading, users, userUsernameSearch, isUsersLoading, orders, orderTextSearch, isOrdersLoading } = this.state
+      const { books, bookIsbn, bookTitle, bookPrice, bookTextSearch, isBooksLoading, users, userUsernameSearch, isUsersLoading, orders, orderTextSearch, isOrdersLoading } = this.state
       return (
         <Container>
           <AdminTab //gọi component AdminTab -->chạy vào Constructor và render
             books={books}
             bookIsbn={bookIsbn}
             bookTitle={bookTitle}
+            bookPrice={bookPrice}
             bookTextSearch={bookTextSearch}
             isBooksLoading={isBooksLoading}
             handleSearchBook={this.handleSearchBook}
-            handleAddBook={this.handleAddBook}
-            handleDeleteBook={this.handleDeleteBook}
+            handleAddOrUpdateBook={this.handleAddOrUpdateBook}
+            handleBindBook={this.handleBindBook}
+            clearBookForm={this.clearBookForm}
             handleInputChange={this.handleInputChange}
+
             users={users}
             userUsernameSearch={userUsernameSearch}
             isUsersLoading={isUsersLoading}

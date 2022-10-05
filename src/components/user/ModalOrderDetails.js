@@ -1,13 +1,13 @@
 import React from 'react'
 import { Button, Icon, Image, Modal, Table } from 'semantic-ui-react'
-import { bookApi } from '../misc/BookApi'
+import { orderApi } from '../misc/OrderApi'
 
 const ModalOrderDetails = ({ orderId, user }) => {
   const [open, setOpen] = React.useState(false)
   const [orderDetailList, setOrderDetailList] = React.useState([])
 
   async function handleGetOrderDetails() {
-    let response = await bookApi.getOrderDetails(user, orderId)
+    let response = await orderApi.getOrderDetails(user, orderId)
 
     if (response != '') {
       let list = response.data.map(orderDetail => {
@@ -47,12 +47,12 @@ const ModalOrderDetails = ({ orderId, user }) => {
         <Table compact striped selectable>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell width={3}>Cover</Table.HeaderCell>
-              <Table.HeaderCell width={3}>ISBN</Table.HeaderCell>
-              <Table.HeaderCell width={3}>Title</Table.HeaderCell>
-              <Table.HeaderCell width={3}>Price</Table.HeaderCell>
-              <Table.HeaderCell width={3}>Quantity</Table.HeaderCell>
-              <Table.HeaderCell width={3}>Amount</Table.HeaderCell>
+              <Table.HeaderCell width={1}>Cover</Table.HeaderCell>
+              <Table.HeaderCell width={1}>ISBN</Table.HeaderCell>
+              <Table.HeaderCell width={1}>Title</Table.HeaderCell>
+              <Table.HeaderCell width={1}>Price</Table.HeaderCell>
+              <Table.HeaderCell width={1}>Quantity</Table.HeaderCell>
+              <Table.HeaderCell width={1}>Amount</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -61,7 +61,7 @@ const ModalOrderDetails = ({ orderId, user }) => {
         </Table>
       </Modal.Content>
       <Modal.Actions>
-        <Button onClick={() => setOpen(false)}  color='blue'>
+        <Button onClick={() => setOpen(false)} color='blue'>
           Close
         </Button>
       </Modal.Actions>

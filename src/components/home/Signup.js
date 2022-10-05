@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { NavLink, Redirect } from 'react-router-dom'
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react'
 import AuthContext from '../context/AuthContext'
-import { bookApi } from '../misc/BookApi'
 import { handleLogError } from '../misc/Helpers'
+import { userApi } from '../misc/UserApi'
 
 class Signup extends Component {
   static contextType = AuthContext
@@ -41,7 +41,7 @@ class Signup extends Component {
     }
 
     const user = { username, password, name, email }
-    bookApi.signup(user)
+    userApi.signup(user)
       .then(response => {
         const { id, name, role } = response.data
         const authdata = window.btoa(username + ':' + password)
